@@ -1,19 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     age = models.PositiveSmallIntegerField(default=0)
     date_registered = models.DateField(auto_now=True)
-    email = models.EmailField()
-    phone_number = models.IntegerField()
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=15, unique=True)
     STATUS_CHOICES = (
         ("gold", "Gold"),
         ("silver", "Silver"),
         ("bronze", "Bronze"),
         ("simple", "Simple")
     )
-    status = models.CharField(max_length=32, choices=STATUS_CHOICES, default='simple')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='simple')
 
     def __str__(self):
         return f'{self.first_name} - {self.last_name}'
