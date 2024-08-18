@@ -5,13 +5,13 @@ from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
+        model = UserProfile
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'age', 'date_registered', 'phone_number',
+                  'status']
         extra_kwargs = {'password': {'write_only': True}}
 
-
     def create(self, validate_date):
-        user = User.objects.create_user(**validate_date)
+        user = UserProfile.objects.create_user(**validate_date)
         return user
 
 class LoginSerializers(serializers.Serializer):

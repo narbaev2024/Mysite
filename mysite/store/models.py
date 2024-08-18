@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+from django.contrib.auth.models import AbstractUser
+class UserProfile(AbstractUser):
     first_name = models.CharField(max_length=32)
     last_name = models.CharField(max_length=32)
     age = models.PositiveSmallIntegerField(default=0)
